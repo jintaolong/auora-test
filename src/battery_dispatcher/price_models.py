@@ -50,10 +50,10 @@ class MarketOnePriceModel(PriceModelBase):
         return np.random.rand() * 80 + 0 # yield a number randomly between 0 - 80
 
     def get_daily_mean(self,
-                       sampling_start_date: Optional[datetime.datetime] = datetime.datetime.min,
-                       sampling_end_date: Optional[datetime.datetime] = datetime.datetime.max,
-                       start_minute: Optional[int] = 0,
-                       end_minute: Optional[int] = 1439) -> float:
+                       date_start: Optional[datetime.datetime] = datetime.datetime.min,
+                       date_end: Optional[datetime.datetime] = datetime.datetime.max,
+                       minute_start: Optional[int] = 0,
+                       minute_end: Optional[int] = 1439) -> float:
         """Calculate the daily mean price with specific constraints for Market One."""
         # add a day minute column to filter by start/end min of each day
         df = self._data.assign(
@@ -63,10 +63,10 @@ class MarketOnePriceModel(PriceModelBase):
             )
         )
         # Filter by date range if provided
-        mask = (df.iloc[:, 0] > sampling_start_date) & \
-               (df.iloc[:, 0] < sampling_end_date) & \
-               (df['day_minute'] > start_minute) & \
-               (df['day_minute'] < end_minute)
+        mask = (df.iloc[:, 0] > date_start) & \
+               (df.iloc[:, 0] < date_end) & \
+               (df['day_minute'] > minute_start) & \
+               (df['day_minute'] < minute_end)
         df = df[mask]
         return df.iloc[:, 1].mean()
 

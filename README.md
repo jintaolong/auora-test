@@ -3,9 +3,11 @@
 Conditions of the current implemented strategy:
 * Only Market 1 is considered 
 * Battery behaviours are not considered
+* Current price is randonly generated between 0 to 80
+* Trading interval is reduce to 2 second for demonstration
 
 Detail:
-Only buy (charge) in the daytime and sell (discharge) in the evening. In daytime, compare current price with daytime price average across the full time span provided, if it's 5% cheaper then buy 1 unit, otherwise just hold. In the evening, compare current price with evening price average across the full time span provided, if it's 5% more expensive then sell 1 unit, otherwise just hold.
+Only buy (charge) during off-peak hours and sell (discharge) in the peak hours (4pm to 8pm daily). During off-peak hours, compare current price with off-peak price average across the full time span provided, if it's 5% cheaper then buy 1 unit, otherwise just hold. In peak time, compare current price with peak-time price average across the full time span provided, if it's 5% more expensive then sell 1 unit, otherwise just hold.
 
 ## How to use it
 ### Env setup
