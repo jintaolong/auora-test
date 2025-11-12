@@ -43,8 +43,7 @@ class MarketOnePriceModel(PriceModelBase):
     _time_unit = 60  # in minutes
 
     def _load_model(self):
-        df = pd.read_excel(Path(file_path) / 'data/markets.xlsx', sheet_name=0)
-        self._data = df
+        self._data = pd.read_excel(Path(file_path) / 'data/markets.xlsx', sheet_name=0)
 
     def get_current_price(self) -> float:
         """Retrieve the current price for Market One."""
@@ -59,7 +58,7 @@ class MarketOnePriceModel(PriceModelBase):
         # add a day minute column to filter by start/end min of each day
         df = self._data.assign(
             day_minute=self._data.apply(
-                lambda row: row[0].hour * 60 + row[0].minute,
+                lambda row: row.iloc[0].hour * 60 + row.iloc[0].minute,
                 axis=1
             )
         )

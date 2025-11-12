@@ -58,16 +58,19 @@ class SimpleDayNightStrategy(TradeStrategy):
             start_minute=start,
             end_minute=end
         )
-        print(is_peak)
+        morning_or_evening = "evening" if is_peak else "morning"
+        print(
+            f"Good {morning_or_evening}, it is {'peak' if is_peak else 'off-peak'}, the {morning_or_evening} mean price is {mean}"
+        )
         if is_peak:
             print(f"current price: {current_price}")
             if current_price > mean * 1.05:
-                return ("sell", 10.0)  # Sell 10 units
+                return ("sell", 1.0)  # Sell 1 unit
             else:
                 return ("hold", 0.0)  # Hold
         else:
             if current_price < mean * 0.95:
-                return ("buy", 10.0)  # Buy 10 units
+                return ("buy", 1.0)  # Buy 1 unit
             else:
                 return ("hold", 0.0)  # Hold
 
