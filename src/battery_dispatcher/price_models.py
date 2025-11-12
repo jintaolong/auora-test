@@ -39,7 +39,7 @@ class PriceModelBase:
         raise NotImplementedError
 
 
-class MarketOnePriceModel(PriceModelBase):
+class MarketTwoPriceModel(PriceModelBase):
     _time_unit = 60  # in minutes
 
     def _load_model(self):

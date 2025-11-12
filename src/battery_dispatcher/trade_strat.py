@@ -5,7 +5,7 @@ import logging
 import time
 from typing import Tuple
 
-from battery_dispatcher.price_models import MarketOnePriceModel
+from battery_dispatcher.price_models import MarketTwoPriceModel
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ class SimpleDayNightStrategy(TradeStrategy):
             A tuple containing the action ('buy', 'sell', 'hold') and the amount.
         """
         now = datetime.now()
-        market_model = MarketOnePriceModel()
+        market_model = MarketTwoPriceModel()
         current_price = market_model.get_current_price()
         is_peak = self._is_now_peak(now)
         mean = 0
@@ -72,7 +72,8 @@ class SimpleDayNightStrategy(TradeStrategy):
                 minute_start=self._PEAK_END.hour * 60 + self._PEAK_END.minute,
                 minute_end=1439
             )
-            mean = (mean + mean_2) / 2  # average off-peak mean
+            mean = (mean * self._PEAK_START.hour + mean_2 * (24 - self._PEAK_END.hour)) \
+                / (self._PEAK_START.hour + 24 - self._PEAK_END.hour)  # average off-peak mean
         print(
             f"Time now is {now}, the {'peak' if is_peak else 'off-peak'} average price is {mean}"
         )

@@ -1,7 +1,7 @@
 # Battery dispatcher program
 ## Strageties
 Conditions of the current implemented strategy:
-* Only Market 1 is considered 
+* Only Market 2 is considered 
 * Battery behaviours are not considered
 * Current price is randonly generated between 0 to 80
 * Trading interval is reduce to 2 second for demonstration
